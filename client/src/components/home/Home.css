@@ -1,0 +1,139 @@
+body{
+    background: rgb(112,193,206);
+    background: linear-gradient(66deg, rgb(177, 232, 240) 33%, rgb(153, 210, 219) 50%, rgb(118, 186, 198) 57%);
+    margin:0%;
+    color: white;
+}
+.weather2{
+    margin: auto;
+    width: 60%;
+    margin-top: 30px;
+    height: 330px;
+    background: rgb(50,115,126);
+    background: linear-gradient(321deg, rgba(50,115,126,1) 6%, rgba(50,115,126,1) 52%, rgba(56,136,150,1) 58%);
+    border-radius: 10px;
+}
+.heads{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    flex-wrap: wrap;
+    padding-left: 68px;
+    padding-right: 68px;
+}
+.rowtwo{
+    display: flex;
+    justify-content: space-evenly;
+    /* flex-wrap: wrap; */
+
+}
+.text{
+    font-size: xx-large;
+}
+.psize{
+    font-size: x-large  ;
+}
+.iconsize{
+    font-size: 200px;
+}
+.size{
+    font-size: 70px;
+}
+.sub{
+    text-align: center;
+    margin: 0%;
+}
+
+
+.rowtwos{
+    margin: auto;
+    width: 60%;
+    display: flex;
+    gap: 40px;
+    background: rgb(56,136,150);
+    background: linear-gradient(189deg, rgb(41, 125, 140) 32%, rgba(56,136,150,1) 47%, rgba(198,242,240,1) 100%);
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width:903px){
+    .iconsize{
+        font-size: 100px;
+        padding-left: 20px;
+    }
+    .size{
+        font-size: 50px;
+    }
+    .heads{
+        padding: 0px;
+    }
+    .sub{
+        font-size: large;
+    }
+}
+
+
+
+@media(max-width:700px){
+    .psize{
+        font-size: large;
+    }   
+    .icontext{
+        font-size: medium;
+    }
+    .size{
+        font-size: larger;
+    }
+}
+
+@media(max-width:530px){
+    .icontext,.size{
+        padding-top: 70px;
+    }
+    .iconsize{
+        font-size: 80px ;
+    }
+    .weather2,.rowtwos{
+        width: 90%;
+        padding: 10px;
+    }
+}
+
+@media(max-width:651px){
+    .text,.degree{
+        font-size: large;
+        margin-top: 10px;
+    }
+}
+
+
+@media(max-width:892px){
+    .rowtwos{
+        font-size: x-small;
+    }
+}
+
+@media(max-width:700px){
+    .rowtwos{
+        gap: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width:500px){
+    .degree{
+        margin-top: 30px;
+    }
+    .psize{
+        font-size: 10px;
+    }
+    .iconsize{
+        font-size: 50px;
+    }
+
+}
+
