@@ -13,14 +13,14 @@ import { FaLongArrowAltUp } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import axios from "axios";
 import { API_KEY } from "../constants";
+import SyncLoader from "react-spinners/SyncLoader";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [lat, setLat] = useState([]);
   const [long, setLong] = useState([]);
   const [description, setDescription] = useState([]);
-  const [dayweather,setDayweather]=useState([]);
-
+  const [dayweather, setDayweather] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -28,11 +28,12 @@ export default function Home() {
       setLong(position.coords.longitude);
     });
   }, []);
+
   console.log(lat, "lat");
   console.log(long, "long");
 
   useEffect(() => {
-    if(lat && long) {
+    if (lat && long) {
       axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`
@@ -56,43 +57,67 @@ export default function Home() {
     return `${day}/${month}/${year}`;
   };
 
-const date = new Date();
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const dayIndex = date.getDay();
-const currentWeekday = weekdays[dayIndex];
+  const date = new Date();
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const dayIndex = date.getDay();
+  const currentWeekday = weekdays[dayIndex];
 
-useEffect(()=>{
-  if(lat&&long){
-
-  axios.get(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}cnt=7&appid=${API_KEY}`)
-  .then((response)=>{
-    console.log(response);
-    setDayweather(response)
-  })
-  .catch((error)=>{
-    console.log(error);
-  })
-}
-
-},[lat,long])
-console.log(dayweather);
+  useEffect(() => {
+    if (lat && long) {
+      axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}cnt=7&appid=${API_KEY}`
+        )
+        .then((response) => {
+          console.log(response);
+          setDayweather(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [lat, long]);
+  console.log(dayweather);
 
   return (
     <>
-      <div className="container-fluid weather2">
+    {data.length==0?(
+      <>
+      <div className="" style={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+
+      <SyncLoader
+  color="#3697d6"
+  size={20}
+  speedMultiplier={1}
+/>
+      </div>
+    
+    </>
+    ):(
+      <>
+ <div className="container-fluid weather2">
         <div className="heads">
           <h1 className="text">{data.name}</h1>
           <h3 className="degree">
             <FaLongArrowAltDown />
-            {((data?.main?.temp_min)-273.15).toFixed(1)}°
+            {(data?.main?.temp_min - 273.15).toFixed(1)}°
             <FaLongArrowAltUp />
-            {((data?.main?.temp_max)-273.15).toFixed(1)}°
+            {(data?.main?.temp_max - 273.15).toFixed(1)}°
           </h3>
         </div>
 
         <div className="rowtwo">
           <p className="psize">
-           {currentWeekday}<br />
+            {currentWeekday}
+            <br />
             {getCurrentDate()} <br />
             Wind {data?.wind?.speed}km/h
             <br />
@@ -102,14 +127,15 @@ console.log(dayweather);
           <h2 className="icontext">
             <TiWeatherPartlySunny className="iconsize" />
 
-            {description.length == 0 ? (
-              ""
-            ) : (
+            {description.length == 0 ? ("") : (
               <p className="sub">{data?.weather[0]?.description}</p>
             )}
           </h2>
 
-          <h1 className="size">{((data?.main?.temp)-273.15).toFixed(1)} <span className="spancel">°</span> </h1>
+          <h1 className="size">
+            {(data?.main?.temp - 273.15).toFixed(1)}{" "}
+            <span className="spancel">°</span>{" "}
+          </h1>
         </div>
       </div>
 
@@ -158,6 +184,9 @@ console.log(dayweather);
       </div>
       <br />
       <br />
+      </>
+    )}
+     
     </>
   );
 }
