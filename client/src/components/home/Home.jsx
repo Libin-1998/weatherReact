@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-import { FaBeer } from "react-icons/fa";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { TiWeatherSunny } from "react-icons/ti";
 import { TiWeatherCloudy } from "react-icons/ti";
@@ -13,6 +12,7 @@ import { FaLongArrowAltDown } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import axios from "axios";
+import { API_KEY } from "../constants";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -35,7 +35,7 @@ export default function Home() {
     if(lat && long) {
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=5e9a26b0d7da2170b8015d8f20637fdb`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`
         )
         .then((response) => {
           console.log(response.data);
@@ -51,7 +51,7 @@ export default function Home() {
   const getCurrentDate = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // January is 0
+    const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     return `${day}/${month}/${year}`;
   };
@@ -64,7 +64,7 @@ const currentWeekday = weekdays[dayIndex];
 useEffect(()=>{
   if(lat&&long){
 
-  axios.get(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}cnt=7&appid=5e9a26b0d7da2170b8015d8f20637fdb`)
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}cnt=7&appid=${API_KEY}`)
   .then((response)=>{
     console.log(response);
     setDayweather(response)
