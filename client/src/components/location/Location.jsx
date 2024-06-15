@@ -7,7 +7,6 @@ export default function Location() {
 
   useEffect(()=>{
 
-    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
           setLocation({
             latitude: position.coords.latitude,
@@ -34,9 +33,7 @@ export default function Location() {
           }
         }
       );
-    } else {
-      setStatus("Geolocation is not supported by your browser.");
-    }
+   
   },[])
   
 
