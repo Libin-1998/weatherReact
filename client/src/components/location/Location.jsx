@@ -14,24 +14,24 @@ export default function Location() {
           });
           setStatus("Location obtained successfully!");
         },
-        // (error) => {
-        //   switch (error.code) {
-        //     case error.PERMISSION_DENIED:
-        //       setStatus("User denied the request for Geolocation.");
-        //       break;
-        //     case error.POSITION_UNAVAILABLE:
-        //       setStatus("Location information is unavailable.");
-        //       break;
-        //     case error.TIMEOUT:
-        //       setStatus("The request to get user location timed out.");
-        //       break;
-        //     case error.UNKNOWN_ERROR:
-        //       setStatus("An unknown error occurred.");
-        //       break;
-        //     default:
-        //       setStatus("An error occurred while fetching location.");
-        //   }
-        // }
+        (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setStatus("User denied the request for Geolocation.");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setStatus("Location information is unavailable.");
+              break;
+            case error.TIMEOUT:
+              setStatus("The request to get user location timed out.");
+              break;
+            case error.UNKNOWN_ERROR:
+              setStatus("An unknown error occurred.");
+              break;
+            default:
+              setStatus("An error occurred while fetching location.");
+          }
+        }
       );
     } else {
       setStatus("Geolocation is not supported by your browser.");
