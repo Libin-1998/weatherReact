@@ -18,6 +18,7 @@ export default function Location() {
           });
           setStatus("Location obtained successfully!");
           navigate('/home')
+          window.location.reload()
         },
 
         (error) => {
