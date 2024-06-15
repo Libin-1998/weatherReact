@@ -136,7 +136,7 @@ body{
     }
 
 }
-@media(max-width:270px){
+@media(max-width:400px){
     .rowtwos{
         height: 200px;
     }
