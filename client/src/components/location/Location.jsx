@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import './Location.css'
+
 
 export default function Location() {
+  const navigate=useNavigate()
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [status, setStatus] = useState(null);
 
@@ -13,7 +17,9 @@ export default function Location() {
             longitude: position.coords.longitude,
           });
           setStatus("Location obtained successfully!");
+          navigate('/home')
         },
+
         (error) => {
           switch (error.code) {
             case error.PERMISSION_DENIED:
@@ -40,17 +46,13 @@ export default function Location() {
 
   return (
     <>
-      <div>
-        <h1>Location Permission Request</h1>
-        <p>Please turn on your location</p>
-        <button onClick={requestLocation}>Get Location</button>
-        <p>Status: {status}</p>
-        {location.latitude && location.longitude && (
-          <p>
-            Latitude: {location.latitude}, Longitude: {location.longitude}
-          </p>
-        )}
+      <div className="spot">
+        <p className="textlocation">Turn On Your Location For Weather</p>
+        <button onClick={requestLocation} class="btn-donate">Get Location</button>
       </div>
+
+
+   
     </>
   );
 }
