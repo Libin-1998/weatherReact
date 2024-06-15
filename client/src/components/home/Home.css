@@ -136,4 +136,9 @@ body{
     }
 
 }
+@media(max-width:270px){
+    .rowtwos{
+        height: 200px;
+    }
+}
 
