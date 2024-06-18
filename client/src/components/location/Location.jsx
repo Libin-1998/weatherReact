@@ -52,7 +52,6 @@ export default function Location() {
         <button onClick={requestLocation} class="btn-donate">Get Location</button>
       </div>
 
-
    
     </>
   );

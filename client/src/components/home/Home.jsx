@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
+import axios from "axios";
+import SyncLoader from "react-spinners/SyncLoader";
+
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { TiWeatherSunny } from "react-icons/ti";
 import { TiWeatherCloudy } from "react-icons/ti";
@@ -11,16 +14,13 @@ import { TiWeatherDownpour } from "react-icons/ti";
 import { FaLongArrowAltDown } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
-import axios from "axios";
 import { API_KEY } from "../constants";
-import SyncLoader from "react-spinners/SyncLoader";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [lat, setLat] = useState([]);
   const [long, setLong] = useState([]);
   const [description, setDescription] = useState([]);
-  const [dayweather, setDayweather] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -69,23 +69,6 @@ export default function Home() {
   ];
   const dayIndex = date.getDay();
   const currentWeekday = weekdays[dayIndex];
-
-  useEffect(() => {
-    if (lat && long) {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}cnt=7&appid=${API_KEY}`
-        )
-        .then((response) => {
-          console.log(response);
-          setDayweather(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [lat, long]);
-  console.log(dayweather);
 
   return (
     <>
