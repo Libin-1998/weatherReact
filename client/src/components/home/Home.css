@@ -8,7 +8,7 @@ body{
     margin: auto;
     width: 60%;
     margin-top: 30px;
-    height: 330px;
+    height: auto;
     background: rgb(50,115,126);
     background: linear-gradient(321deg, rgba(50,115,126,1) 6%, rgba(50,115,126,1) 52%, rgba(56,136,150,1) 58%);
     border-radius: 10px;
@@ -16,33 +16,123 @@ body{
 .heads{
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    height: auto;
     flex-wrap: wrap;
-    padding-left: 68px;
-    padding-right: 68px;
-}
-.rowtwo{
-    display: flex;
-    justify-content: space-evenly;
-    /* flex-wrap: wrap; */
-
+    padding: 20px 20px 0px 20px;
+    gap: 20px;
+   
 }
 .text{
-    font-size: xx-large;
+    margin-bottom: 0%;
 }
-.psize{
-    font-size: x-large  ;
+.icontext{
+    margin-top: 0px;
 }
 .iconsize{
     font-size: 200px;
 }
+
+
+
+
+
+
+.rowtwo{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0px 20px 20px 20px;
+    height: auto;
+}
+.psize{
+    font-size: 30px;
+}
+
 .size{
-    font-size: 70px;
+    font-size: 60px;
 }
 .sub{
     text-align: center;
     margin: 0%;
 }
+
+@media(max-width:990px){
+    .iconsize{
+font-size: 150px;
+height: 100px;
+    }
+    .size{
+        font-size: 50px;
+    }
+    .psize{
+        font-size: 25px;
+    }
+}
+
+/* @media(max-width:767px){
+    .psize{
+        font-size: 20px;
+    }
+    .iconsize{
+        font-size: 100px;
+        height: 80px;
+    }
+    .size{
+        font-size: 35px;
+    }
+}
+
+
+
+@media(max-width:469px){
+    .psize{
+        width: 150px;
+    }
+    .iconsize{
+        width: 100px;
+    }
+    .icontext{
+        width: 100px;
+        padding-right: 100px;
+    }
+    .psize{
+        padding-left: 20px;
+    }
+    .size{
+        padding-left: 20px;
+    }
+} */
+
+@media(max-width:777px){
+    .psize{
+        font-size: 20px;
+    }
+    .iconsize{
+        font-size: 100px;
+    }
+    .size{
+        font-size: 30px;
+    }
+}
+
+@media(max-width:600px){
+    .psize,.icontext,.size{
+width: 250px;
+margin: 0%;
+    }
+    .sub{
+        text-align: left;
+    }
+    .iconsize{
+        height: 70px;
+    }
+   
+}
+
+
+
+
+
 
 
 .rowtwos{
@@ -53,118 +143,21 @@ body{
     background: rgb(56,136,150);
     background: linear-gradient(359deg, rgb(41, 125, 140) 32%, rgba(56,136,150,1) 47%, rgba(198,242,240,1) 100%);
     border-radius: 10px;
-    margin-top: 20px;
     text-align: center;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-@media(max-width:903px){
-    .iconsize{
-        font-size: 100px;
-        padding-left: 20px;
-    }
-    .size{
-        font-size: 50px;
-    }
-    .heads{
-        padding: 0px;
-    }
-    .sub{
-        font-size: large;
-    }
+.degrees{
+    margin: 0%;
 }
-
-
-
-@media(max-width:700px){
-    .psize{
-        font-size: large;
-    }   
-    .icontext{
-        font-size: medium;
-    }
-    .size{
-        font-size: larger;
-    }
-}
-
-@media(max-width:530px){
-    .icontext,.size{
-        padding-top: 70px;
-    }
-    .iconsize{
-        font-size: 80px ;
-    }
-    .weather2,.rowtwos{
-        width: 90%;
-        padding: 10px;
-    }
-}
-
-@media(max-width:651px){
-    .text,.degree{
-        font-size: large;
-        margin-top: 10px;
-    }
-}
-
-
-@media(max-width:892px){
-    .rowtwos{
-        font-size: x-small;
-    }
-}
-
-@media(max-width:700px){
-    .rowtwos{
-        gap: 20px;
-        display: flex;
-        flex-wrap: wrap;
-    }
-}
-
-@media(max-width:500px){
-    .degree{
-        margin-top: 30px;
-    }
-    .psize{
-        font-size: 10px;
-    }
-    .iconsize{
-        font-size: 50px;
-    }
-
-}
-@media(max-width:400px){
-    .rowtwos{
-        height: auto;
-    }
-}
-
 .descriptioncls{
     margin: 0%;
 }
-.degrees{
-    margin: 0%;
-    font-size: small;
-}
-@media(max-width:903px){
-    .heads{
-padding-left: 20px;
-padding-right: 20px;
+@media(max-width:1078px){
+    .rowtwos{
+        row-gap: 5px;
     }
-}
-@media(max-width:263px){
-    .heads{
-        height: 90px;
-    }
-   
-}
-
-@media(max-width:254px){
-    .degree{
-        margin: 0%;
-    }
-   
 }

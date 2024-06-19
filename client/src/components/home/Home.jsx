@@ -131,6 +131,7 @@ export default function Home() {
                 {currentWeekday}
                 <br />
                 {getCurrentDate()} <br />
+                <br />
                 Wind {data?.wind?.speed}km/h
                 <br />
                 <WiHumidity />
