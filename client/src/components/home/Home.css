@@ -138,7 +138,33 @@ body{
 }
 @media(max-width:400px){
     .rowtwos{
-        height: 200px;
+        height: auto;
     }
 }
 
+.descriptioncls{
+    margin: 0%;
+}
+.degrees{
+    margin: 0%;
+    font-size: small;
+}
+@media(max-width:903px){
+    .heads{
+padding-left: 20px;
+padding-right: 20px;
+    }
+}
+@media(max-width:263px){
+    .heads{
+        height: 90px;
+    }
+   
+}
+
+@media(max-width:254px){
+    .degree{
+        margin: 0%;
+    }
+   
+}

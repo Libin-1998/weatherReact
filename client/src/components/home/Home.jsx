@@ -20,7 +20,9 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [lat, setLat] = useState([]);
   const [long, setLong] = useState([]);
+  const [hour, setHour] = useState([]);
   const [description, setDescription] = useState([]);
+  
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -46,6 +48,19 @@ export default function Home() {
         .catch((error) => {
           console.log(error);
         });
+
+        if (lat && long) {
+          axios
+            .get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API_KEY}`)
+            .then((response) => {
+              console.log(response);
+              setHour(response.data.list.slice(0, 6));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+    
     }
   }, [lat, long]);
 
@@ -55,6 +70,18 @@ export default function Home() {
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     return `${day}/${month}/${year}`;
+  };
+
+
+  const formatTime = (dateTime) => {
+    const date = new Date(dateTime);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const strTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    return strTime;
   };
 
   const date = new Date();
@@ -72,104 +99,148 @@ export default function Home() {
 
   return (
     <>
-    {data.length==0?(
-      <>
-      <div className="" style={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+      {data.length == 0 ? (
+        <>
+          <div
+            className=""
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <SyncLoader color="#3697d6" size={20} speedMultiplier={1} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="container-fluid weather2">
+            <div className="heads">
+              <h1 className="text">{data.name}</h1>
+              <h3 className="degree">
+                <FaLongArrowAltDown />
+                {(data?.main?.temp_min - 273.15).toFixed(1)}°
+                <FaLongArrowAltUp />
+                {(data?.main?.temp_max - 273.15).toFixed(1)}°
+              </h3>
+            </div>
 
-      <SyncLoader
-  color="#3697d6"
-  size={20}
-  speedMultiplier={1}
-/>
-      </div>
-    
-    </>
-    ):(
-      <>
- <div className="container-fluid weather2">
-        <div className="heads">
-          <h1 className="text">{data.name}</h1>
-          <h3 className="degree">
-            <FaLongArrowAltDown />
-            {(data?.main?.temp_min - 273.15).toFixed(1)}°
-            <FaLongArrowAltUp />
-            {(data?.main?.temp_max - 273.15).toFixed(1)}°
-          </h3>
-        </div>
+            <div className="rowtwo">
+              <p className="psize">
+                {currentWeekday}
+                <br />
+                {getCurrentDate()} <br />
+                Wind {data?.wind?.speed}km/h
+                <br />
+                <WiHumidity />
+                {data?.main?.humidity}%
+              </p>
+              <h2 className="icontext">
+                {data.weather[0].main=='Sunny' ?
+                <TiWeatherPartlySunny className="iconsize" />
+                :''}
 
-        <div className="rowtwo">
-          <p className="psize">
-            {currentWeekday}
-            <br />
-            {getCurrentDate()} <br />
-            Wind {data?.wind?.speed}km/h
-            <br />
-            <WiHumidity />
-            {data?.main?.humidity}%
-          </p>
-          <h2 className="icontext">
-            <TiWeatherPartlySunny className="iconsize" />
+               {data.weather[0].main=='Clouds' ?
+                <TiWeatherCloudy className="iconsize" />
+                :''}
 
-            {description.length == 0 ? ("") : (
-              <p className="sub">{data?.weather[0]?.description}</p>
-            )}
-          </h2>
+               {data.weather[0].main=='Rain' ?
+                <TiWeatherShower className="iconsize" />
+                :''}
 
-          <h1 className="size">
-            {(data?.main?.temp - 273.15).toFixed(1)}{" "}
-            <span className="spancel">°</span>{" "}
-          </h1>
-        </div>
-      </div>
 
-      <div className="rowtwos">
-        <h3>
-          MON <br />
-          <TiWeatherSunny /> <br />
-          {/* 25° */}
-        </h3>
-        <h3>
-          TUE
+
+                {description.length == 0 ? (
+                  ""
+                ) : (
+
+                  <p className="sub">{data?.weather[0]?.main}</p>
+                )}
+              </h2>
+
+              <h1 className="size">
+                {(data?.main?.temp - 273.15).toFixed(1)}{" "}
+                <span className="spancel">°</span>{" "}
+              </h1>
+            </div>
+          </div>
+
+          <div className="rowtwos">
+            
+            
+          {hour.map((datas) => (
+            <h3>
+              {formatTime(datas.dt_txt)}
+              <br />
+               <br />
+               {
+                ((datas.main.temp) - 273.15).toFixed(2)>26?
+                <TiWeatherDownpour /> :''
+               }
+               {
+                ((datas.main.temp) - 273.15).toFixed(2)==26?
+                <TiWeatherShower /> :''
+               }
+               {
+                ((datas.main.temp) - 273.15).toFixed(2)<26?
+                <TiWeatherShower /> :''
+               }
+               <br />
+              
+              <p className="degrees">{((datas.main.temp) - 273.15).toFixed(1)}°C</p>
+              <br />
+              <h5 className="descriptioncls">
+                {
+                datas.weather[0].description           
+                 }
+                 </h5>
+              
+            </h3>
+            
+            /* <h3>
+              TUE
+              <br />
+              <TiWeatherCloudy /> <br />
+              20°
+            </h3>
+
+            <h3>
+              WED <br />
+              <TiWeatherShower /> <br />
+              19°
+            </h3>
+
+            <h3>
+              THU <br />
+              <TiWeatherStormy /> <br />
+              15°
+            </h3>
+
+            <h3>
+              FRI <br />
+              <TiWeatherSnow /> <br />
+              -5°
+            </h3>
+
+            <h3>
+              SAT <br />
+              <TiWeatherWindyCloudy /> <br />
+              23°
+            </h3>
+
+            <h3>
+              SUN <br />
+              <TiWeatherDownpour /> <br />
+              15°
+            </h3> */
+          ))}
+
+          </div>
           <br />
-          <TiWeatherCloudy /> <br />
-          {/* 20° */}
-        </h3>
-
-        <h3>
-          WED <br />
-          <TiWeatherShower /> <br />
-          {/* 19° */}
-        </h3>
-
-        <h3>
-          THU <br />
-          <TiWeatherStormy /> <br />
-          {/* 15° */}
-        </h3>
-
-        <h3>
-          FRI <br />
-          <TiWeatherSnow /> <br />
-          {/* -5° */}
-        </h3>
-
-        <h3>
-          SAT <br />
-          <TiWeatherWindyCloudy /> <br />
-          {/* 23° */}
-        </h3>
-
-        <h3>
-          SUN <br />
-          <TiWeatherDownpour /> <br />
-          {/* 15° */}
-        </h3>
-      </div>
-      <br />
-      <br />
-      </>
-    )}
-     
+          <br />
+        </>
+      )}
     </>
   );
 }
