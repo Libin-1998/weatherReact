@@ -94,45 +94,20 @@ body {
 
 }
 
-@media(max-width:400px) { 
-
-    .iconsize {
-        height: 60px;
-    }
-    .size{
-        font-size: 25px;
-    }
-    .psize{
-        font-size: 15px;
-    }
+@media(max-width:420px) { 
     .heads{
-        padding: 10px 10px 0px 10px;
+        flex-direction: column;
+        gap: 0px;
+        text-align: center;
     }
     .rowtwo{
-        padding: 0px 10px 10px 10px;
+        flex-direction: column;
+        text-align: center;
     }
-}
-@media(max-width:304px){
-.rowtwo{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-.heads{
-    display: flex;
-    justify-content: center;
-}
-.psize{
-    width: 203px;
-}
-.iconsize{
-    width: 195px;
-}
-.icontext{
-    margin-bottom: 0%;
-}
+   
 }
 
+   
 .rowtwos {
     margin: auto;
     width: 60%;
