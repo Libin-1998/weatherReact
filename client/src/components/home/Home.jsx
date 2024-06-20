@@ -22,7 +22,6 @@ export default function Home() {
   const [long, setLong] = useState([]);
   const [hour, setHour] = useState([]);
   const [description, setDescription] = useState([]);
-  
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -49,18 +48,19 @@ export default function Home() {
           console.log(error);
         });
 
-        if (lat && long) {
-          axios
-            .get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API_KEY}`)
-            .then((response) => {
-              console.log(response);
-              setHour(response.data.list.slice(0, 6));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-    
+      if (lat && long) {
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API_KEY}`
+          )
+          .then((response) => {
+            console.log(response);
+            setHour(response.data.list.slice(0, 6));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   }, [lat, long]);
 
@@ -72,15 +72,16 @@ export default function Home() {
     return `${day}/${month}/${year}`;
   };
 
-
   const formatTime = (dateTime) => {
     const date = new Date(dateTime);
     let hours = date.getHours();
     const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    const strTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    const strTime = `${hours}:${
+      minutes < 10 ? "0" + minutes : minutes
+    } ${ampm}`;
     return strTime;
   };
 
@@ -138,24 +139,27 @@ export default function Home() {
                 {data?.main?.humidity}%
               </p>
               <h2 className="icontext">
-                {data.weather[0].main=='Sunny' ?
-                <TiWeatherPartlySunny className="iconsize" />
-                :''}
+                {data.weather[0].main == "Sunny" ? (
+                  <TiWeatherPartlySunny className="iconsize" />
+                ) : (
+                  ""
+                )}
 
-               {data.weather[0].main=='Clouds' ?
-                <TiWeatherCloudy className="iconsize" />
-                :''}
+                {data.weather[0].main == "Clouds" ? (
+                  <TiWeatherCloudy className="iconsize" />
+                ) : (
+                  ""
+                )}
 
-               {data.weather[0].main=='Rain' ?
-                <TiWeatherShower className="iconsize" />
-                :''}
-
-
+                {data.weather[0].main == "Rain" ? (
+                  <TiWeatherShower className="iconsize" />
+                ) : (
+                  ""
+                )}
 
                 {description.length == 0 ? (
                   ""
                 ) : (
-
                   <p className="sub">{data?.weather[0]?.main}</p>
                 )}
               </h2>
@@ -168,38 +172,38 @@ export default function Home() {
           </div>
 
           <div className="rowtwos">
-            
-            
-          {hour.map((datas) => (
-            <h3>
-              {formatTime(datas.dt_txt)}
-              <br />
-               <br />
-               {
-                ((datas.main.temp) - 273.15).toFixed(2)>26?
-                <TiWeatherDownpour /> :''
-               }
-               {
-                ((datas.main.temp) - 273.15).toFixed(2)==26?
-                <TiWeatherShower /> :''
-               }
-               {
-                ((datas.main.temp) - 273.15).toFixed(2)<26?
-                <TiWeatherShower /> :''
-               }
-               <br />
-              
-              <p className="degrees">{((datas.main.temp) - 273.15).toFixed(1)}°C</p>
-              <br />
-              <h5 className="descriptioncls">
-                {
-                datas.weather[0].description           
-                 }
-                 </h5>
-              
-            </h3>
-            
-            /* <h3>
+            {hour.map((datas) => (
+              <h3>
+                {formatTime(datas.dt_txt)}
+                <br />
+                <br />
+                {(datas.main.temp - 273.15).toFixed(2) > 26 ? (
+                  <TiWeatherDownpour />
+                ) : (
+                  ""
+                )}
+                {(datas.main.temp - 273.15).toFixed(2) == 26 ? (
+                  <TiWeatherShower />
+                ) : (
+                  ""
+                )}
+                {(datas.main.temp - 273.15).toFixed(2) < 26 ? (
+                  <TiWeatherShower />
+                ) : (
+                  ""
+                )}
+                <br />
+
+                <p className="degrees">
+                  {(datas.main.temp - 273.15).toFixed(1)}°C
+                </p>
+                <br />
+                <h5 className="descriptioncls">
+                  {datas.weather[0].description}
+                </h5>
+              </h3>
+
+              /* <h3>
               TUE
               <br />
               <TiWeatherCloudy /> <br />
@@ -235,8 +239,7 @@ export default function Home() {
               <TiWeatherDownpour /> <br />
               15°
             </h3> */
-          ))}
-
+            ))}
           </div>
           <br />
           <br />
