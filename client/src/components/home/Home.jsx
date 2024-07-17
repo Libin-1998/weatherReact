@@ -203,42 +203,7 @@ export default function Home() {
                 </h5>
               </h3>
 
-              /* <h3>
-              TUE
-              <br />
-              <TiWeatherCloudy /> <br />
-              20°
-            </h3>
-
-            <h3>
-              WED <br />
-              <TiWeatherShower /> <br />
-              19°
-            </h3>
-
-            <h3>
-              THU <br />
-              <TiWeatherStormy /> <br />
-              15°
-            </h3>
-
-            <h3>
-              FRI <br />
-              <TiWeatherSnow /> <br />
-              -5°
-            </h3>
-
-            <h3>
-              SAT <br />
-              <TiWeatherWindyCloudy /> <br />
-              23°
-            </h3>
-
-            <h3>
-              SUN <br />
-              <TiWeatherDownpour /> <br />
-              15°
-            </h3> */
+            
             ))}
           </div>
           <br />
